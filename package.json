@@ -28,5 +28,8 @@
     "graphql-tools": "^1.0.0",
     "schemaglue": "^1.4.1",
     "subscriptions-transport-ws": "^0.7.3"
+  },
+  "engines": {
+    "node": "10.15.3"
   }
 }
