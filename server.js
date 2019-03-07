@@ -13,6 +13,7 @@ import {
   makeExecutableSchema,
   addMockFunctionsToSchema,
 } from 'graphql-tools';
+require('dotenv-safe').config();
 const { glue } = require('schemaglue')
 
 const { schema, resolver } = glue('src/')
@@ -21,13 +22,13 @@ const executableSchema = makeExecutableSchema({
 	resolvers: resolver
 })
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const server = express();
 
 //Wrap the Express server
 const ws = createServer(server);
 ws.listen(PORT, () => {
-  console.log(`GraphQL Server is now running on http://localhost:${PORT}`);
+  console.log(`GraphQL Server is now running on http://${process.env.IP}:${PORT}`);
   // Set up the WebSocket for handling GraphQL subscriptions
   new SubscriptionServer({
     execute,
@@ -42,10 +43,10 @@ ws.listen(PORT, () => {
 
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
-  subscriptionsEndpoint: `ws://localhost:4000/subscriptions`
+  subscriptionsEndpoint: `ws://${process.env.IP}:${PORT}/subscriptions`
 }));
 
-server.use('*', cors({ origin: 'http://localhost:3000' }));
+server.use(cors());
 
 server.use('/graphql', bodyParser.json(), graphqlExpress({
   schema: executableSchema
