@@ -1,18 +1,21 @@
 
-import express from 'express';
-import {
+const express = require("express");
+const {
   graphqlExpress,
   graphiqlExpress,
-} from 'graphql-server-express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import { execute, subscribe } from 'graphql';
-import { createServer } from 'http';
-import { SubscriptionServer } from 'subscriptions-transport-ws';
-import {
+} = require('graphql-server-express');
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const {
+  execute,
+  subscribe,
+} = require('graphql');
+const { createServer } = require("http");
+const { SubscriptionServer } = require("subscriptions-transport-ws");
+const {
   makeExecutableSchema,
   addMockFunctionsToSchema,
-} from 'graphql-tools';
+} = require("graphql-tools");
 require('dotenv-safe').config();
 const { glue } = require('schemaglue')
 

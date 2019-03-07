@@ -1,5 +1,5 @@
 // server/src/resolvers.js
-import { PubSub, withFilter } from 'graphql-subscriptions';
+const { PubSub, withFilter } = require("graphql-subscriptions");
 
 const pubsub = new PubSub();
 
